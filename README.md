@@ -1,70 +1,152 @@
-# Getting Started with Create React App
+# Employee Accounting
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React application for managing and displaying employee information.
 
-## Available Scripts
+The project was created as part of a Udemy Frontend Development course to practice **React fundamentals**, component-based architecture, state management, props, event handling, search, and filtering.
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+* Display employee information
+* Add new employees
+* Delete employees
+* Search employees by name
+* Filter employees by promotion status
+* Filter employees by salary
+* Mark employees for promotion
+* Mark employees as favorites
+* Display the total number of employees
+* Display the number of employees receiving a bonus
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* **React**
+* **JavaScript (ES6+)**
+* **HTML5**
+* **CSS3**
 
-### `yarn test`
+## React Concepts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Components
 
-### `yarn build`
+The application is divided into reusable functional and class components:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* `App`
+* `AppInfo`
+* `AppFilter`
+* `SearchPanel`
+* `EmployeesList`
+* `EmployeesAddForm`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### State Management
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The main application state is managed in the `App` class component using `this.state` and `this.setState()`.
 
-### `yarn eject`
+The state contains:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```js
+{
+    data: [],
+    term: "",
+    filter: "all"
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Employee data is updated using React state methods and array methods such as `map()` and `filter()`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Props
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Components communicate with each other through props.
 
-## Learn More
+For example, `App` passes event handlers to child components:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```jsx
+<EmployeesList
+    data={visibleData}
+    onDelete={this.deleteItem}
+    onToggleIncrease={this.onToggleIncrease}
+    onToggleStar={this.onToggleStar}
+/>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Search
 
-### Code Splitting
+Employees can be searched by name.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The search functionality uses `filter()` and `indexOf()` to find matching employee names.
 
-### Analyzing the Bundle Size
+### Filtering
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application supports several filters:
 
-### Making a Progressive Web App
+* All employees
+* Employees selected for promotion
+* Employees with a salary above `$1000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The visible employee list is calculated based on the current search term and selected filter.
 
-### Advanced Configuration
+## Data Manipulation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The project demonstrates working with JavaScript arrays and objects without directly mutating the existing state.
 
-### Deployment
+For example, employee properties are updated by creating a new object:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```js
+return {
+    ...item,
+    inCrease: !item.inCrease
+};
+```
 
-### `yarn build` fails to minify
+The employee list is then updated using `map()`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+data: data.map(item => {
+    if (item.id === id) {
+        return {
+            ...item,
+            inCrease: !item.inCrease
+        };
+    }
+
+    return item;
+})
+```
+
+## Project Structure
+
+```text
+src/
+├── app/
+├── app-filter/
+├── app-info/
+├── employees-add-form/
+├── employees-list/
+├── search-panel/
+└── ...
+```
+
+## Project Goals
+
+This project was created to practice the fundamentals of **React and JavaScript** through a small employee management application.
+
+The main focus was understanding:
+
+* React components
+* Props
+* State management
+* Event handling
+* Rendering dynamic data
+* Array methods
+* Search and filtering
+* Updating objects and arrays without direct mutation
+
+## Future Improvements
+
+* Migrate class components to functional components
+* Replace class state with React Hooks
+* Add persistent data storage
+* Improve form validation
+* Add editing functionality for employees
+* Add automated tests
+<img width="1020" height="748" src="https://github.com/user-attachments/assets/96e5d3bf-a6f9-4798-a1c2-dfe368b46dc8" />
+
